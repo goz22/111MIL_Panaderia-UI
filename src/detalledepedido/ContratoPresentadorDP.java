@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pkg111mil_panaderia.ui;
+package detalledepedido;
 
 /**
  *
- * @author steve-urbit
+ * @author utku30
  */
- public interface ContratoControladorVistas {
-    
-    public void lanzarDetallePedido();
+public interface ContratoPresentadorDP {
+    public void iniciar();
+    public void mainButtonPressed();
     
 }

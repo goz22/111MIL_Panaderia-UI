@@ -5,6 +5,8 @@
  */
 package pkg111mil_panaderia.ui;
 
+import detalledepedido.ContratoVistaDP;
+import detalledepedido.VistaDP;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,11 +21,13 @@ import javafx.stage.Stage;
  */
 public class UI extends Application implements ContratoControladorVistas{
     private Stage mainStage;
+    private VistaDP vistaDP = null;
     
     @Override
     public void start(Stage primaryStage) {
         this.mainStage = primaryStage;
         //Lanzar primera vista
+        this.lanzarDetallePedido();
         this.mainStage.show();
     }
 
@@ -32,6 +36,14 @@ public class UI extends Application implements ContratoControladorVistas{
      */
     public static void main(String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void lanzarDetallePedido() {
+        if(this.vistaDP == null){
+            this.vistaDP = new VistaDP(this);
+        }
+        this.mainStage.setScene(this.vistaDP.getScene());
     }
     
 }

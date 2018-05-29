@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pkg111mil_panaderia.ui;
+package detalledepedido;
+
+import javafx.scene.Scene;
 
 /**
  *
- * @author steve-urbit
+ * @author utku30
  */
- public interface ContratoControladorVistas {
-    
-    public void lanzarDetallePedido();
+public interface ContratoVistaDP {
+    public Scene getScene();
+    public void changeButtonToBlue();
     
 }
