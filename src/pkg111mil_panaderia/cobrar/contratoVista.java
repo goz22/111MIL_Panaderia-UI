@@ -5,10 +5,15 @@
  */
 package pkg111mil_panaderia.cobrar;
 
+import javafx.scene.Scene;
+
 /**
  *
  * @author utku33
  */
 public interface contratoVista {
+    public Scene getScene();
+    
+    
     
 }
