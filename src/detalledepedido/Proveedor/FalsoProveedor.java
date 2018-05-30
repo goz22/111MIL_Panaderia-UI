@@ -18,7 +18,6 @@ import pkg111mil_panaderia.modelo.UnidadMedida;
 public class FalsoProveedor implements ContratoFalsoProveedor{
 
     private ArrayList<DetallePedido> listaDetalles;
-
     
     public FalsoProveedor() {
         this.listaDetalles = new ArrayList<>();

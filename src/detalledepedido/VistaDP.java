@@ -5,6 +5,7 @@
  */
 package detalledepedido;
 
+import javafx.geometry.Insets;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -13,8 +14,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 import pkg111mil_panaderia.modelo.DetallePedido;
 import pkg111mil_panaderia.ui.ContratoControladorVistas;
@@ -28,7 +30,7 @@ public class VistaDP implements ContratoVistaDP {
     private ContratoControladorVistas controlador;
     
     private Scene scene;
-    private BorderPane root;
+    private GridPane root;
     private Button eliminarPedido;
     private Button cobrar;
     private Label total;
@@ -37,54 +39,69 @@ public class VistaDP implements ContratoVistaDP {
     
     public VistaDP(ContratoControladorVistas controlador) {
         this.controlador = controlador;
-        this.iniciarGrafica();
         this.presentadorDP = new PresentadorDP(this);
+        this.iniciarGrafica();
         this.presentadorDP.iniciar();
     }
     
     
     private void iniciarGrafica(){
-        this.root = new BorderPane();
-        this.scene = new Scene(this.root, 800, 800);
-        GridPane gridpane = new GridPane();
-        gridpane.setHgap(10);
-        gridpane.setVgap(10);
-       
-        ObservableList<DetallePedido> leaders = FXCollections.observableArrayList();
-        for(DetallePedido detalle: this.presentadorDP.getDetallePedido()) {
-            leaders.add(detalle);
-        }
-        final ListView<DetallePedido> lista = new ListView<DetallePedido>(leaders);
-        lista.setPrefWidth(150);
-        lista.setPrefHeight(150);
+        HBox caja = new HBox();
+        this.root = new GridPane();
         
-        lista.setCellFactory(new Callback<ListView<DetallePedido>, ListCell<DetallePedido>>() {
-
-              @Override
-              public ListCell<DetallePedido> call(ListView<DetallePedido> param) {
-                final Label nombreProducto = new Label();
-                final Label cantidadProductos = new Label();
-                final Label precioProducto = new Label();
-                final Button botonCancelar = new Button();
-                
-                final ListCell<DetallePedido> cell = new ListCell<DetallePedido>() {
-                  @Override
-                  public void updateItem(DetallePedido item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (item != null) {
-                      nombreProducto.setText(item.getTipoProducto().getNombre());
-                      cantidadProductos.setText(String.valueOf(item.getCantidad()));
-                      precioProducto.setText(String.valueOf(item.getTipoProducto().getPrecioUnitario()));
-                      botonCancelar.setText("Cancelar");
-                    }
-                  }
-                };
-                return cell;
-              }
-            });
-
-        gridpane.add(lista, 0, 1);
-        root.getChildren().add(gridpane);
+        this.root.setVgap(10);
+        this.root.setHgap(10);
+        
+        final Label categoria = new Label();
+        final Label cantidad = new Label();
+        final Label precio = new Label();
+        
+        categoria.setText("Producto");
+        cantidad.setText("Cantidad");
+        precio.setText("Precio");
+        
+        this.root.add(categoria, 0 ,0);
+        this.root.add(cantidad, 1 ,0);
+        this.root.add(precio, 2 ,0);
+            
+        
+        int i = 1;
+        for(DetallePedido detalle : this.presentadorDP.getDetallePedido()) {
+            final Label nombreProducto = new Label();
+            final Label cantidadProductos = new Label();
+            final Label precioProducto = new Label();
+            final Button botonCancelar = new Button();
+            
+            nombreProducto.setText(detalle.getTipoProducto().getNombre());
+            cantidadProductos.setText(String.valueOf(detalle.getCantidad()));
+            precioProducto.setText(String.valueOf(detalle.getTipoProducto().getPrecioUnitario()));
+            botonCancelar.setText("Cancelar");
+            
+            this.root.add(nombreProducto, 0 ,i);
+            this.root.add(cantidadProductos, 1 ,i);
+            this.root.add(precioProducto, 2 ,i);
+            this.root.add(botonCancelar, 3 ,i);
+            
+            i++;
+        }
+        
+        final Button botonCancelarGral = new Button();
+        final Button botonCobrar = new Button();
+        final Label total = new Label();
+        
+        botonCancelarGral.setText("Cancelar Pedidos");
+        botonCobrar.setText("Cobrar");
+        float totalPedidos = 0;
+        for(DetallePedido detalle : this.presentadorDP.getDetallePedido()) {
+            totalPedidos += detalle.calcularTotalDetalle();
+        }
+        total.setText(String.valueOf(totalPedidos));
+        
+        this.root.add(botonCancelarGral, 3 ,20);
+        this.root.add(botonCobrar, 1 ,20);
+        this.root.add(total, 2, 20);
+        this.scene = new Scene(this.root, 500, 500);
+        
     }
     
     @Override
