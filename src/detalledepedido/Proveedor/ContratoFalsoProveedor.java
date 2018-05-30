@@ -3,19 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package detalledepedido;
+package detalledepedido.Proveedor;
 
 import java.util.ArrayList;
 import pkg111mil_panaderia.modelo.DetallePedido;
 
 /**
  *
- * @author utku30
+ * @author PC
  */
-public interface ContratoPresentadorDP {
+public interface ContratoFalsoProveedor {
     
-    public void iniciar();
-    public void mainButtonPressed();
-    public ArrayList<DetallePedido> getDetallePedido();
+    public ArrayList<DetallePedido> getDetallesPedido();
     
 }

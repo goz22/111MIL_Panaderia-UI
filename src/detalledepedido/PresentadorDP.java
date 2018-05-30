@@ -5,25 +5,37 @@
  */
 package detalledepedido;
 
+import detalledepedido.Proveedor.ContratoFalsoProveedor;
+import detalledepedido.Proveedor.FalsoProveedor;
+import java.util.ArrayList;
+import pkg111mil_panaderia.modelo.DetallePedido;
+
 /**
  *
  * @author utku30
  */
 public class PresentadorDP implements ContratoPresentadorDP {
      private ContratoVistaDP vista;
+     private ContratoFalsoProveedor falsoProveedor;
     
     public PresentadorDP(ContratoVistaDP vista) {
         this.vista = vista;
+        this.falsoProveedor = new FalsoProveedor();
     }
 
     @Override
     public void iniciar() {
-        this.vista.changeButtonToBlue();
+        
     }
 
     @Override
     public void mainButtonPressed() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
+    @Override
+    public ArrayList<DetallePedido> getDetallePedido() {
+        return (this.falsoProveedor.getDetallesPedido());
+    }
+    
 }

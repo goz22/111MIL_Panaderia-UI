@@ -12,7 +12,7 @@ import javafx.scene.Scene;
  * @author utku30
  */
 public interface ContratoVistaDP {
+    
     public Scene getScene();
-    public void changeButtonToBlue();
     
 }
