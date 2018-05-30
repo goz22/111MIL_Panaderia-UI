@@ -20,11 +20,13 @@ import javafx.scene.layout.VBox;
 public class VistaCobranza implements contratoVista {
      private Scene scene;
    // private GridPane root;
-    private Button mainButton;
     private BorderPane root;
     
+    //private contratoPresentadorCobranza presentador;
     
-    private contratoPresentadorCobranza;
+    public VistaCobranza(){
+        this.configurarVentanita();
+    }
     
     @Override
     public Scene getScene() {
@@ -34,47 +36,52 @@ public class VistaCobranza implements contratoVista {
   private void configurarVentanita(){
       root = new BorderPane();
       HBox hbox = addHBox();
-      VBox vbox = new VBox();
+      VBox vbox = addVBox();
       root.setCenter(new TilePane());
       root.setLeft (vbox);
       root.setBottom(hbox);
+      this.scene = new Scene(this.root,300, 300);
     }
+     @Override
   public HBox addHBox() {
       HBox hbox = new HBox();
       hbox.setPadding (new Insets (15, 12, 15, 12));
       hbox.setSpacing(10);
-      hbox.setStyle(null);
+      hbox.setStyle("-fx-background-color: #999999");
       
-     Button botonBien = new Button ("Bien");
-     botonBien.setPrefSize(10, 20);
+     Button botonBien = new Button ("Cobrar");
+     botonBien.setPrefSize(100, 50);
+     botonBien.setStyle("-fx-background-color: #008000");
      
      
      Button botonCancelar = new Button ("Cancelar");
-     botonCancelar.setPrefSize (10, 20);
+     botonCancelar.setPrefSize (100, 50);
+     botonCancelar.setStyle("-fx-background-color: #FF0000");
      hbox.getChildren().addAll(botonBien, botonCancelar);
      return hbox;
     }
 
+     @Override
     public VBox addVBox() {
       VBox vbox = new VBox();
       vbox.setPadding (new Insets (15, 12, 15, 12));
       vbox.setSpacing(10);
       vbox.setStyle(null);
       
-     Button boton5 = new Button ("5");
-     boton5.setPrefSize(10, 20);
-     Button boton10 = new Button ("10");
-     boton10.setPrefSize(10, 20);
-     Button boton20 = new Button ("20");
-     boton20.setPrefSize(10, 20);
-     Button boton50 = new Button ("50");
-     boton50.setPrefSize(10, 20);
-     Button boton100 = new Button ("100");
-     boton100.setPrefSize(10, 20);
-     Button boton200 = new Button ("200");
-     boton200.setPrefSize(10, 20);
-     Button boton500 = new Button ("500");
-     boton500.setPrefSize(10, 20);
+     Button boton5 = new Button ("$5");
+     boton5.setPrefSize(50, 50);
+     Button boton10 = new Button ("$10");
+     boton10.setPrefSize(50, 50);
+     Button boton20 = new Button ("$20");
+     boton20.setPrefSize(50, 50);
+     Button boton50 = new Button ("$50");
+     boton50.setPrefSize(50, 50);
+     Button boton100 = new Button ("$100");
+     boton100.setPrefSize(50, 50);
+     Button boton200 = new Button ("$200");
+     boton200.setPrefSize(50, 50);
+     Button boton500 = new Button ("$500");
+     boton500.setPrefSize(50, 50);
     vbox.getChildren().addAll(boton5, boton10, boton20, boton50, boton100, boton200, boton500);
     
      return vbox;

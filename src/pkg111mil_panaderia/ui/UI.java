@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import pkg111mil_panaderia.cobrar.VistaCobranza;
 
 /**
  *
@@ -19,11 +20,12 @@ import javafx.stage.Stage;
  */
 public class UI extends Application implements ContratoControladorVistas{
     private Stage mainStage;
+    private VistaCobranza vistaConbranza = new VistaCobranza();
     
     @Override
     public void start(Stage primaryStage) {
         this.mainStage = primaryStage;
-        //Lanzar primera vista
+        this.launchVistaCobranza();
         this.mainStage.show();
     }
 
@@ -32,6 +34,15 @@ public class UI extends Application implements ContratoControladorVistas{
      */
     public static void main(String[] args) {
         launch(args);
+        
+    }
+    
+    @Override
+    public void launchVistaCobranza(Factura factura) {
+        if(this.vistaConbranza == null){
+            this.vistaConbranza = new VistaCobranza(factura);
+        }
+        this.mainStage.setScene(this.vistaConbranza.getScene());
     }
     
 }

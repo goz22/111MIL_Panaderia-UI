@@ -6,6 +6,8 @@
 package pkg111mil_panaderia.cobrar;
 
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  *
@@ -13,6 +15,8 @@ import javafx.scene.Scene;
  */
 public interface contratoVista {
     public Scene getScene();
+    public HBox addHBox();
+    public VBox addVBox();
     
     
     
