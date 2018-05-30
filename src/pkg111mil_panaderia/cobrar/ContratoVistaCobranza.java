@@ -11,7 +11,7 @@ import javafx.scene.Scene;
  *
  * @author utku33
  */
-public interface contratoVista {
+public interface ContratoVistaCobranza {
     public Scene getScene();
     
     
