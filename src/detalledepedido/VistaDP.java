@@ -5,7 +5,8 @@
  */
 package detalledepedido;
 
-import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,6 +14,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 import pkg111mil_panaderia.modelo.DetallePedido;
 import pkg111mil_panaderia.ui.ContratoControladorVistas;
@@ -26,13 +28,11 @@ public class VistaDP implements ContratoVistaDP {
     private ContratoControladorVistas controlador;
     
     private Scene scene;
-    private BorderPane lienzo;
+    private BorderPane root;
     private Button eliminarPedido;
     private Button cobrar;
     private Label total;
     private ScrollPane scroll;
-    private ListView<DetallePedido> lista;
-    private ArrayList<DetallePedido> detalles;
     
     
     public VistaDP(ContratoControladorVistas controlador) {
@@ -44,20 +44,21 @@ public class VistaDP implements ContratoVistaDP {
     
     
     private void iniciarGrafica(){
-        this.lienzo = new BorderPane();
-        this.scene = new Scene(this.lienzo, 800, 800);
-        
-        this.lista = new ListView();
-        /*
+        this.root = new BorderPane();
+        this.scene = new Scene(this.root, 800, 800);
+        GridPane gridpane = new GridPane();
+        gridpane.setHgap(10);
+        gridpane.setVgap(10);
+       
+        ObservableList<DetallePedido> leaders = FXCollections.observableArrayList();
         for(DetallePedido detalle: this.presentadorDP.getDetallePedido()) {
-            this.lista.getItems().add(detalle);
+            leaders.add(detalle);
         }
-        */
-        this.detalles = this.presentadorDP.getDetallePedido();
-        System.out.println(detalles.size());
+        final ListView<DetallePedido> lista = new ListView<DetallePedido>(leaders);
+        lista.setPrefWidth(150);
+        lista.setPrefHeight(150);
         
-        // 
-        this.lista.setCellFactory(new Callback<ListView<DetallePedido>, ListCell<DetallePedido>>() {
+        lista.setCellFactory(new Callback<ListView<DetallePedido>, ListCell<DetallePedido>>() {
 
               @Override
               public ListCell<DetallePedido> call(ListView<DetallePedido> param) {
@@ -82,6 +83,8 @@ public class VistaDP implements ContratoVistaDP {
               }
             });
 
+        gridpane.add(lista, 0, 1);
+        root.getChildren().add(gridpane);
     }
     
     @Override
