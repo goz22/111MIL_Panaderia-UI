@@ -33,5 +33,4 @@ public class PresentadorCobranza implements ContratoPresentadorCobranza{
     public void botonAceptarCobranza(){
         this.vista.aceptarCobranza();
     }
-        
 }

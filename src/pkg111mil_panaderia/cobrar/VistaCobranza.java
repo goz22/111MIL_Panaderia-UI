@@ -12,6 +12,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import pkg111mil_panaderia.modelo.Dinero;
 
 /**
  *
@@ -21,7 +23,7 @@ public class VistaCobranza implements ContratoVistaCobranza {
      private Scene scene;
    // private GridPane root;
     private BorderPane root;
-    
+    private TilePane lienzoEfectivo;
     //private contratoPresentadorCobranza presentador;
     
     public VistaCobranza(){
@@ -37,7 +39,14 @@ public class VistaCobranza implements ContratoVistaCobranza {
       root = new BorderPane();
       HBox hbox = addHBox();
       VBox vbox = addVBox();
-      root.setCenter(new TilePane());
+      this.lienzoEfectivo = new TilePane();
+      this.lienzoEfectivo.setHgap(8);
+      this.lienzoEfectivo.setPrefColumns(4);
+      /*Text texto1 = new Text("HOLA");
+      Text texto2 = new Text("CHAU");
+      this.lienzoEfectivo.getChildren().add(texto1);
+      this.lienzoEfectivo.getChildren().add(texto2);*/
+      root.setCenter(this.lienzoEfectivo);
       root.setLeft (vbox);
       root.setBottom(hbox);
       this.scene = new Scene(this.root,300, 300);
@@ -67,7 +76,14 @@ public class VistaCobranza implements ContratoVistaCobranza {
       vbox.setPadding (new Insets (15, 12, 15, 12));
       vbox.setSpacing(10);
       vbox.setStyle(null);
-      
+     Button botonVeinticinco = new Button ("$0.25");
+     botonVeinticinco.setPrefSize (50, 50);
+     Button botonCincuenta = new Button ("$0.50");
+     botonCincuenta.setPrefSize(50, 50);
+     Button boton1 = new Button ("$1");
+     boton1.setPrefSize(50, 50);
+     Button boton2 = new Button ("$2");
+     boton2.setPrefSize (50, 50);
      Button boton5 = new Button ("$5");
      boton5.setPrefSize(50, 50);
      Button boton10 = new Button ("$10");
@@ -82,10 +98,28 @@ public class VistaCobranza implements ContratoVistaCobranza {
      boton200.setPrefSize(50, 50);
      Button boton500 = new Button ("$500");
      boton500.setPrefSize(50, 50);
-    vbox.getChildren().addAll(boton5, boton10, boton20, boton50, boton100, boton200, boton500);
+    vbox.getChildren().addAll(botonVeinticinco, botonCincuenta, boton1, boton2, boton5, boton10, boton20, boton50, boton100, boton200, boton500);
     
      return vbox;
     }
- 
+    
+    @Override 
+    public void agregarBillete (Dinero billete) {
+        this.lienzoEfectivo.getChildren().add(root);
+       
+    }
+    
+    @Override  
+    public void aceptarCobranza (){
+        
+        
+         
+     }
+    @Override
+    public void cancelarCobranza(){
+        this.lienzoEfectivo.getChildren().clear();
+        
+    }
+             
    
     }

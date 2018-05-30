@@ -12,7 +12,7 @@ import pkg111mil_panaderia.modelo.Dinero;
  * @author utku34
  */
 public interface ContratoPresentadorCobranza {
-    public void agregarBillete(Dinero bill);
+    public void billeteElegido(Dinero bill);
     public void botonCancelarCobranza();
     public void botonAceptarCobranza();
     
