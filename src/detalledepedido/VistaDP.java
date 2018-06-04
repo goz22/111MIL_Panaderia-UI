@@ -5,19 +5,18 @@
  */
 package detalledepedido;
 
+import java.util.ArrayList;
+import java.util.List;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.util.Callback;
 import pkg111mil_panaderia.modelo.DetallePedido;
 import pkg111mil_panaderia.ui.ContratoControladorVistas;
 
@@ -30,12 +29,8 @@ public class VistaDP implements ContratoVistaDP {
     private ContratoControladorVistas controlador;
     
     private Scene scene;
-    private GridPane root;
-    private Button eliminarPedido;
-    private Button cobrar;
-    private Label total;
-    private ScrollPane scroll;
-    
+    private GridPane grid;
+    private BorderPane panel;
     
     public VistaDP(ContratoControladorVistas controlador) {
         this.controlador = controlador;
@@ -46,61 +41,198 @@ public class VistaDP implements ContratoVistaDP {
     
     
     private void iniciarGrafica(){
+        /**
+         * CREACION DE PANELES
+         */
+        // Creacion de la grilla (CENTER OF PANEL)
+        this.grid = new GridPane();
+        this.grid.setHgap(10);
+        this.grid.setVgap(10);
+        this.grid.setPadding(new Insets(10, 10, 10, 10));
+        this.grid.setAlignment(Pos.BASELINE_CENTER);
+        
+        // Creacion de caja horizontal (BOTTOM OF PANEL)
         HBox caja = new HBox();
-        this.root = new GridPane();
+        caja.setSpacing(10);
+        caja.setStyle("-fx-background-color: #336699;");
+        caja.setAlignment(Pos.CENTER);
         
-        this.root.setVgap(10);
-        this.root.setHgap(10);
+        // Creacion de caja horizontal (TOP OF PANEL)
+        HBox caja2 = new HBox();
+        caja.setSpacing(10);
+        caja.setStyle("-fx-background-color: #336699;");
+        caja.setAlignment(Pos.CENTER);
         
-        final Label categoria = new Label();
-        final Label cantidad = new Label();
-        final Label precio = new Label();
+        // Creacion del panel Principal
+        this.panel = new BorderPane();
+        this.panel.setPadding(new Insets(10));
+        this.panel.setCenter(grid);
+        this.panel.setBottom(caja);
+        this.panel.setTop(caja2);
         
-        categoria.setText("Producto");
-        cantidad.setText("Cantidad");
-        precio.setText("Precio");
         
-        this.root.add(categoria, 0 ,0);
-        this.root.add(cantidad, 1 ,0);
-        this.root.add(precio, 2 ,0);
-            
+        /**
+         * CREACION DE ELEMENTOS Y AGREGADO A LOS PANELES
+         */
+        // (CENTER) Creacion de elementos y agregado a la grilla
+        Label estadoPedido = new Label("Estado Pedido");
+        Label categoria = new Label("Producto");
+        Label cantidad = new Label("Cantidad");
+        Label precio = new Label("Precio U");
         
+        this.grid.add(categoria, 0 ,0);
+        this.grid.add(cantidad, 1 ,0);
+        this.grid.add(precio, 2 ,0);
+        this.grid.add(estadoPedido, 3, 0);
+        
+        List<Button> botones = new ArrayList();
+        List<Label> labelEstado = new ArrayList();
+        List<Label> labelPrecio = new ArrayList();
+        List<Label> labelCantidad = new ArrayList();
         int i = 1;
         for(DetallePedido detalle : this.presentadorDP.getDetallePedido()) {
-            final Label nombreProducto = new Label();
-            final Label cantidadProductos = new Label();
-            final Label precioProducto = new Label();
-            final Button botonCancelar = new Button();
+            String producto = detalle.getTipoProducto().getNombre();
+            String cantidadProd = String.valueOf(detalle.getCantidad());
+            String precioProd = String.valueOf(detalle.getTipoProducto().getPrecioUnitario());
             
-            nombreProducto.setText(detalle.getTipoProducto().getNombre());
-            cantidadProductos.setText(String.valueOf(detalle.getCantidad()));
-            precioProducto.setText(String.valueOf(detalle.getTipoProducto().getPrecioUnitario()));
-            botonCancelar.setText("Cancelar");
+            Label nombreProducto = new Label(producto);
+            Label cantidadProductos = new Label(cantidadProd);
+            Label precioProducto = new Label(precioProd);
+            Label estadoPed = new Label("Confirmado");
+            Button botonCancelar = new Button("Cancelar");
             
-            this.root.add(nombreProducto, 0 ,i);
-            this.root.add(cantidadProductos, 1 ,i);
-            this.root.add(precioProducto, 2 ,i);
-            this.root.add(botonCancelar, 3 ,i);
+            botones.add(botonCancelar);
+            labelEstado.add(estadoPed);
+            labelPrecio.add(precioProducto);
+            labelCantidad.add(cantidadProductos);
+            
+            this.grid.add(nombreProducto, 0 ,i);
+            this.grid.add(cantidadProductos, 1 ,i);
+            this.grid.add(precioProducto, 2 ,i);
+            this.grid.add(botonCancelar, 3 ,i);
+            this.grid.add(estadoPed, 4 ,i);
             
             i++;
         }
         
-        final Button botonCancelarGral = new Button();
-        final Button botonCobrar = new Button();
-        final Label total = new Label();
+        // (BOTTOM) Creacion de elementos y agregado a caja horizontal
+        Button botonCancelarGral = new Button("Cancelar Pedidos");
+        Button botonCobrar = new Button("Cobrar");
+        Label total = new Label();
         
-        botonCancelarGral.setText("Cancelar Pedidos");
-        botonCobrar.setText("Cobrar");
         float totalPedidos = 0;
         for(DetallePedido detalle : this.presentadorDP.getDetallePedido()) {
             totalPedidos += detalle.calcularTotalDetalle();
         }
         total.setText(String.valueOf(totalPedidos));
         
-        this.root.add(botonCancelarGral, 3 ,20);
-        this.root.add(botonCobrar, 1 ,20);
-        this.root.add(total, 2, 20);
-        this.scene = new Scene(this.root, 500, 500);
+        caja.getChildren().add(botonCobrar);
+        caja.getChildren().add(total);
+        caja.getChildren().add(botonCancelarGral);
+        
+        // (TOP) Creacion de elementos y agregados a posicion
+        Label titulo = new Label("COBRO DE PEDIDOS");
+        caja2.getChildren().add(titulo);
+       
+        
+        /**
+         * ACCION DE BOTONES 
+         */
+        botonCancelarGral.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            // LLAMAR A OTRA VISTA DEL CONTROLADOR???
+            total.setText("0");
+            for(Label label : labelEstado) {
+                label.setText("Cancelado");
+            }
+        }
+        });
+        
+        
+        botonCobrar.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            // LLAMAR A OTRA VISTA DEL CONTROLADOR???
+            List<Integer> banderas = new ArrayList();
+            for(int i = 0; i < labelEstado.size(); i++) {
+                Label label = labelEstado.get(i);
+                if(label.getText().equals("Cancelado") == true) {
+                    banderas.add(0);
+                }
+                else {
+                    banderas.add(1);
+                }
+            }
+            imprimirFactura(banderas);
+        }
+        });
+        
+        
+        botones.get(0).setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            labelEstado.get(0).setText("Cancelado");
+            float precioTotal = Float.parseFloat(total.getText());
+            float cantProductosACancelar = Float.parseFloat(labelCantidad.get(0).getText());
+            float precioProductoACancelar = Float.parseFloat(labelPrecio.get(0).getText());
+            float precioFinal = precioTotal - (cantProductosACancelar * precioProductoACancelar);
+                    
+            String nuevoPrecio = String.valueOf(precioFinal);
+            total.setText(nuevoPrecio);
+        }
+        });
+        
+        botones.get(1).setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            labelEstado.get(1).setText("Cancelado");
+            float precioTotal = Float.parseFloat(total.getText());
+            float cantProductosACancelar = Float.parseFloat(labelCantidad.get(1).getText());
+            float precioProductoACancelar = Float.parseFloat(labelPrecio.get(1).getText());
+            float precioFinal = precioTotal - (cantProductosACancelar * precioProductoACancelar);
+                    
+            String nuevoPrecio = String.valueOf(precioFinal);
+            total.setText(nuevoPrecio);
+        }
+        });
+        
+        botones.get(2).setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            labelEstado.get(2).setText("Cancelado");
+            float precioTotal = Float.parseFloat(total.getText());
+            float cantProductosACancelar = Float.parseFloat(labelCantidad.get(2).getText());
+            float precioProductoACancelar = Float.parseFloat(labelPrecio.get(2).getText());
+            float precioFinal = precioTotal - (cantProductosACancelar * precioProductoACancelar);
+                    
+            String nuevoPrecio = String.valueOf(precioFinal);
+            total.setText(nuevoPrecio);
+        }
+        });
+        
+        botones.get(3).setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            labelEstado.get(3).setText("Cancelado");
+            float precioTotal = Float.parseFloat(total.getText());
+            float cantProductosACancelar = Float.parseFloat(labelCantidad.get(3).getText());
+            float precioProductoACancelar = Float.parseFloat(labelPrecio.get(3).getText());
+            float precioFinal = precioTotal - (cantProductosACancelar * precioProductoACancelar);
+                    
+            String nuevoPrecio = String.valueOf(precioFinal);
+            total.setText(nuevoPrecio);
+        }
+        });
+        
+        
+        
+        
+        
+        /**
+         * Seteo de Escena
+         */
+        this.scene = new Scene(this.panel, 500, 500);
         
     }
     
@@ -109,4 +241,28 @@ public class VistaDP implements ContratoVistaDP {
         return this.scene;
     }
 
+    public void imprimirFactura(List<Integer> lista){
+        ArrayList<DetallePedido> pedidosNoCancelados = new ArrayList(); 
+        for(int i = 0; i < this.presentadorDP.getDetallePedido().size(); i++) {
+            if(lista.get(i) == 1) {
+                DetallePedido pedido = this.presentadorDP.getDetallePedido().get(i);
+                pedidosNoCancelados.add(pedido);
+            }
+        }
+        int total = 0;
+        for(DetallePedido detalle : pedidosNoCancelados) {
+            total += detalle.calcularTotalDetalle();
+        }
+        System.out.println("");
+        System.out.println("*** FACTURA ***");
+        System.out.println("Tipo Producto         Precio U          Cantidad");
+        for(DetallePedido detalle : pedidosNoCancelados) {
+            System.out.println(detalle.getTipoProducto().getNombre() + "            " + 
+                    detalle.getTipoProducto().getPrecioUnitario() + "               " + detalle.getCantidad());
+        }
+        System.out.println("");
+        System.out.println("Total a pagar: " + total);
+        System.out.println("*** FIN DE FACTURA ***");
+    }
+    
 }

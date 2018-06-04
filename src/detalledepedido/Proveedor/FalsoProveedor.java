@@ -6,7 +6,6 @@
 package detalledepedido.Proveedor;
 
 import java.util.ArrayList;
-import java.util.List;
 import pkg111mil_panaderia.modelo.DetallePedido;
 import pkg111mil_panaderia.modelo.TipoProducto;
 import pkg111mil_panaderia.modelo.UnidadMedida;
@@ -24,10 +23,10 @@ public class FalsoProveedor implements ContratoFalsoProveedor{
         
         UnidadMedida medida1 = UnidadMedida.UNIDAD;
         
-        TipoProducto tipo1 = new TipoProducto("Criollo", 35.5f, medida1, 1000);
-        TipoProducto tipo2 = new TipoProducto("Pan Casero", 50.5f, medida1, 1000);
-        TipoProducto tipo3 = new TipoProducto("Factura", 70.5f, medida1, 1000);
-        TipoProducto tipo4 = new TipoProducto("Pan bollo", 50.5f, medida1, 1000);
+        TipoProducto tipo1 = new TipoProducto("Criollo   ", 3.50f, medida1, 1000);
+        TipoProducto tipo2 = new TipoProducto("Pan Casero", 8.50f, medida1, 1000);
+        TipoProducto tipo3 = new TipoProducto("Factura   ", 5.00f, medida1, 1000);
+        TipoProducto tipo4 = new TipoProducto("Pan bollo ", 7.00f, medida1, 1000);
         
         DetallePedido detalle1 = new DetallePedido(4, tipo1);
         DetallePedido detalle2 = new DetallePedido(1, tipo2);
