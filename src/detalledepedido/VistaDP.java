@@ -164,7 +164,20 @@ public class VistaDP implements ContratoVistaDP {
                     banderas.add(1);
                 }
             }
-            imprimirFactura(banderas);
+           
+            int cantPedCanc = 0;
+            for(int i = 0; i < banderas.size(); i++) {
+                if(banderas.get(i) == 0) {
+                    cantPedCanc ++;
+                }
+            }
+            
+            if(cantPedCanc < 4){
+                imprimirFactura(banderas);
+            }
+            else {
+                System.out.println("Todos los pedidos fueron cancelados!");
+            }
         }
         });
         
@@ -172,56 +185,64 @@ public class VistaDP implements ContratoVistaDP {
         botones.get(0).setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
-            labelEstado.get(0).setText("Cancelado");
-            float precioTotal = Float.parseFloat(total.getText());
-            float cantProductosACancelar = Float.parseFloat(labelCantidad.get(0).getText());
-            float precioProductoACancelar = Float.parseFloat(labelPrecio.get(0).getText());
-            float precioFinal = precioTotal - (cantProductosACancelar * precioProductoACancelar);
-                    
-            String nuevoPrecio = String.valueOf(precioFinal);
-            total.setText(nuevoPrecio);
+            if(labelEstado.get(0).getText().equals("Cancelado") != true) {
+                labelEstado.get(0).setText("Cancelado");
+                float precioTotal = Float.parseFloat(total.getText());
+                float cantProductosACancelar = Float.parseFloat(labelCantidad.get(0).getText());
+                float precioProductoACancelar = Float.parseFloat(labelPrecio.get(0).getText());
+                float precioFinal = precioTotal - (cantProductosACancelar * precioProductoACancelar);
+
+                String nuevoPrecio = String.valueOf(precioFinal);
+                total.setText(nuevoPrecio);
+            }
         }
         });
         
         botones.get(1).setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
-            labelEstado.get(1).setText("Cancelado");
-            float precioTotal = Float.parseFloat(total.getText());
-            float cantProductosACancelar = Float.parseFloat(labelCantidad.get(1).getText());
-            float precioProductoACancelar = Float.parseFloat(labelPrecio.get(1).getText());
-            float precioFinal = precioTotal - (cantProductosACancelar * precioProductoACancelar);
-                    
-            String nuevoPrecio = String.valueOf(precioFinal);
-            total.setText(nuevoPrecio);
+            if(labelEstado.get(1).getText().equals("Cancelado") != true) {
+                labelEstado.get(1).setText("Cancelado");
+                float precioTotal = Float.parseFloat(total.getText());
+                float cantProductosACancelar = Float.parseFloat(labelCantidad.get(1).getText());
+                float precioProductoACancelar = Float.parseFloat(labelPrecio.get(1).getText());
+                float precioFinal = precioTotal - (cantProductosACancelar * precioProductoACancelar);
+
+                String nuevoPrecio = String.valueOf(precioFinal);
+                total.setText(nuevoPrecio);
+            }
         }
         });
         
         botones.get(2).setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
-            labelEstado.get(2).setText("Cancelado");
-            float precioTotal = Float.parseFloat(total.getText());
-            float cantProductosACancelar = Float.parseFloat(labelCantidad.get(2).getText());
-            float precioProductoACancelar = Float.parseFloat(labelPrecio.get(2).getText());
-            float precioFinal = precioTotal - (cantProductosACancelar * precioProductoACancelar);
-                    
-            String nuevoPrecio = String.valueOf(precioFinal);
-            total.setText(nuevoPrecio);
+            if(labelEstado.get(2).getText().equals("Cancelado") != true) {
+                labelEstado.get(2).setText("Cancelado");
+                float precioTotal = Float.parseFloat(total.getText());
+                float cantProductosACancelar = Float.parseFloat(labelCantidad.get(2).getText());
+                float precioProductoACancelar = Float.parseFloat(labelPrecio.get(2).getText());
+                float precioFinal = precioTotal - (cantProductosACancelar * precioProductoACancelar);
+
+                String nuevoPrecio = String.valueOf(precioFinal);
+                total.setText(nuevoPrecio);
+            }
         }
         });
         
         botones.get(3).setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
-            labelEstado.get(3).setText("Cancelado");
-            float precioTotal = Float.parseFloat(total.getText());
-            float cantProductosACancelar = Float.parseFloat(labelCantidad.get(3).getText());
-            float precioProductoACancelar = Float.parseFloat(labelPrecio.get(3).getText());
-            float precioFinal = precioTotal - (cantProductosACancelar * precioProductoACancelar);
-                    
-            String nuevoPrecio = String.valueOf(precioFinal);
-            total.setText(nuevoPrecio);
+            if(labelEstado.get(3).getText().equals("Cancelado") != true) {
+                labelEstado.get(3).setText("Cancelado");
+                float precioTotal = Float.parseFloat(total.getText());
+                float cantProductosACancelar = Float.parseFloat(labelCantidad.get(3).getText());
+                float precioProductoACancelar = Float.parseFloat(labelPrecio.get(3).getText());
+                float precioFinal = precioTotal - (cantProductosACancelar * precioProductoACancelar);
+
+                String nuevoPrecio = String.valueOf(precioFinal);
+                total.setText(nuevoPrecio);
+            }
         }
         });
         
