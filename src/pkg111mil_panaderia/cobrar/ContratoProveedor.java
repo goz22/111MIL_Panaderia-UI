@@ -5,10 +5,14 @@
  */
 package pkg111mil_panaderia.cobrar;
 
+import java.util.List;
+import pkg111mil_panaderia.modelo.Dinero;
+
 /**
  *
  * @author agustin
  */
 public interface ContratoProveedor {
-    
+    public List<Dinero> getDineroAutorizado();
+    public void agregarDineroACaja(List<Dinero> dinero);
 }
