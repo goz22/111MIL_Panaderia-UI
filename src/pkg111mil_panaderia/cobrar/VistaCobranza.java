@@ -14,6 +14,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import pkg111mil_panaderia.modelo.Dinero;
+import pkg111mil_panaderia.modelo.TipoDinero;
 
 /**
  *
@@ -24,7 +25,7 @@ public class VistaCobranza implements ContratoVistaCobranza {
    // private GridPane root;
     private BorderPane root;
     private TilePane lienzoEfectivo;
-    //private contratoPresentadorCobranza presentador;
+    private ContratoPresentadorCobranza presentador;
     
     public VistaCobranza(){
         this.configurarVentanita();
@@ -39,13 +40,12 @@ public class VistaCobranza implements ContratoVistaCobranza {
       root = new BorderPane();
       HBox hbox = addHBox();
       VBox vbox = addVBox();
+      //Inicia el Lienzo de billetes seleccionados
+      //Cada fila mostrara un maximo de 4 billetes.
       this.lienzoEfectivo = new TilePane();
       this.lienzoEfectivo.setHgap(8);
       this.lienzoEfectivo.setPrefColumns(4);
-      /*Text texto1 = new Text("HOLA");
-      Text texto2 = new Text("CHAU");
-      this.lienzoEfectivo.getChildren().add(texto1);
-      this.lienzoEfectivo.getChildren().add(texto2);*/
+      
       root.setCenter(this.lienzoEfectivo);
       root.setLeft (vbox);
       root.setBottom(hbox);
@@ -105,16 +105,16 @@ public class VistaCobranza implements ContratoVistaCobranza {
     
     @Override 
     public void agregarBillete (Dinero billete) {
-        this.lienzoEfectivo.getChildren().add(root);
+        Text textoBillete = new Text("$ " + billete.getDenominacion());
+        this.lienzoEfectivo.getChildren().add(textoBillete);
        
     }
     
     @Override  
     public void aceptarCobranza (){
-        
-        
-         
-     }
+        //Falta que termine de definirse la funcionalidad Vuelto.
+    }
+    
     @Override
     public void cancelarCobranza(){
         this.lienzoEfectivo.getChildren().clear();
