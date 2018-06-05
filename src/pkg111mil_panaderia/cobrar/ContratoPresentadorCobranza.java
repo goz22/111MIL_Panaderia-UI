@@ -16,6 +16,6 @@ public interface ContratoPresentadorCobranza {
     public void botonCancelarCobranza();
     public void botonAceptarCobranza();
     public float mostrarTotalPedido();
-    public float mostrarTotal();
+    public float mostrarTotalIngresado();
     
 }
