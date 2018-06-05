@@ -1,4 +1,4 @@
-package Cantidad;
+package pkg111mil_panaderia.cantidad;
 
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -7,13 +7,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import pkg111mil_panaderia.ui.ContratoControladorVistas;
 import pkg111mil_panaderia.modelo.TipoProducto;
+import pkg111mil_panaderia.ui.ContratoControladorVistas;
 
 public class VistaCantidad implements ContratoVistaCantidad{
     
     private ContratoPresentadorCantidad presentador;
     private ContratoControladorVistas controlador;
+    private TipoProducto producto;
     
     private Scene scene;
     private GridPane lienzo;
@@ -27,15 +28,17 @@ public class VistaCantidad implements ContratoVistaCantidad{
     private Button btn8;
     private Button btn9;
     private Button btn0;
-    private Button coma;
+    private Button punto;
     private Button ok;
     private Button cancelar;
+    private Button borrar;
     private Label textoCantidad;
     private Label textoMonto;
-    private float total;
+    private float cantidadIngresada;
     
     public VistaCantidad(ContratoControladorVistas controlador, TipoProducto producto){
         this.controlador = controlador;
+        this.producto = producto;
         this.iniciarInterfazGrafica();
         this.presentador = new PresentadorCantidad(this, producto);
         this.presentador.iniciar();
@@ -46,7 +49,7 @@ public class VistaCantidad implements ContratoVistaCantidad{
         this.lienzo.setAlignment(Pos.CENTER);
         this.lienzo.setHgap(10);
         this.lienzo.setVgap(10);
-        this.lienzo.setPadding(new Insets(25, 25, 25, 25));
+        this.lienzo.setPadding(new Insets(20, 20, 20, 20));
         
         this.scene = new Scene(this.lienzo, 500, 500);
         btn1 = new Button();
@@ -59,23 +62,25 @@ public class VistaCantidad implements ContratoVistaCantidad{
         btn8 = new Button();
         btn9 = new Button();
         btn0 = new Button();
-        coma = new Button();
+        punto = new Button();
+        borrar = new Button();
         ok = new Button();
         cancelar = new Button();
         
         btn1.setText("1");
         btn2.setText("2");
-        btn3.setText("3");
+        btn3.setText(" 3 ");
         btn4.setText("4");
         btn5.setText("5");
-        btn6.setText("6");
+        btn6.setText(" 6 ");
         btn7.setText("7");
         btn8.setText("8");
-        btn9.setText("9");
+        btn9.setText(" 9 ");
         btn0.setText("0");
-        coma.setText(",");
-        ok.setText("ok");
-        cancelar.setText("X");
+        punto.setText(" . ");
+        borrar.setText("<-");
+        ok.setText("OK");
+        cancelar.setText(" X ");
         
         
       /*  lienzo.getChildren().add(btn1);
@@ -109,88 +114,88 @@ public class VistaCantidad implements ContratoVistaCantidad{
        this.lienzo.add(btn7, 0, 5);
        this.lienzo.add(btn8, 1, 5);
        this.lienzo.add(btn9, 2, 5);
-       this.lienzo.add(coma, 0, 6);
+       this.lienzo.add(punto, 0, 6);
        this.lienzo.add(btn0, 1, 6);
+       this.lienzo.add(borrar, 2, 6);
        this.lienzo.add(ok, 0, 7);
        this.lienzo.add(cancelar, 2, 7);
        
-       total = 0;
+       ok.setStyle("-fx-background-color: #00FF00");
+       cancelar.setStyle("-fx-background-color: #FF0000");
+       
+       cantidadIngresada = 0;
        
        btn1.setOnAction((ActionEvent event) -> {
-           textoCantidad.setText(textoCantidad.getText() + "1");
-           total = Integer.parseInt(textoCantidad.getText());
-           textoMonto.setText("" + total);
+           accionBoton(1);
         });
        
        btn2.setOnAction((ActionEvent event) -> {
-           textoCantidad.setText(textoCantidad.getText() + "2");
-           total = Integer.parseInt(textoCantidad.getText());
-           textoMonto.setText("" + total);
+           accionBoton(2);
         });
        
        btn3.setOnAction((ActionEvent event) -> {
-           textoCantidad.setText(textoCantidad.getText() + "3");
-           total = Integer.parseInt(textoCantidad.getText());
-           textoMonto.setText("" + total);
+           accionBoton(3);
         });
        
        btn4.setOnAction((ActionEvent event) -> {
-           textoCantidad.setText(textoCantidad.getText() + "4");
-           total = Integer.parseInt(textoCantidad.getText());
-           textoMonto.setText("" + total);
+           accionBoton(4);
         });
        
        btn5.setOnAction((ActionEvent event) -> {
-           textoCantidad.setText(textoCantidad.getText() + "5");
-           total = Float.parseFloat(textoCantidad.getText());
-           textoMonto.setText("" + total);
+           accionBoton(5);
         });
        
        btn6.setOnAction((ActionEvent event) -> {
-           textoCantidad.setText(textoCantidad.getText() + "6");
-           total = Integer.parseInt(textoCantidad.getText());
-           textoMonto.setText("" + total);
+           accionBoton(6);
         });
        
        btn7.setOnAction((ActionEvent event) -> {
-           textoCantidad.setText(textoCantidad.getText() + "7");
-           total = Integer.parseInt(textoCantidad.getText());
-           textoMonto.setText("" + total);
+           accionBoton(7);
         });
        
        btn8.setOnAction((ActionEvent event) -> {
-           textoCantidad.setText(textoCantidad.getText() + "8");
-           total = Integer.parseInt(textoCantidad.getText());
-           textoMonto.setText("" + total);
+           accionBoton(8);
         });
        
        btn9.setOnAction((ActionEvent event) -> {
-           textoCantidad.setText(textoCantidad.getText() + "9");
-           total = Integer.parseInt(textoCantidad.getText());
-           textoMonto.setText("" + total);
+           accionBoton(9);
         });
        
        btn0.setOnAction((ActionEvent event) -> {
-           textoCantidad.setText(textoCantidad.getText() + "0");
-           total = Integer.parseInt(textoCantidad.getText());
-           textoMonto.setText("" + total);
+           accionBoton(0);
         });
        
-       coma.setOnAction((ActionEvent event) -> {
+       punto.setOnAction((ActionEvent event) -> {
            textoCantidad.setText(textoCantidad.getText() + ".");
         }); 
        
        cancelar.setOnAction((ActionEvent event) -> {
+           textoCantidad.setText("");
+           textoMonto.setText("");
+        }); 
+       
+       borrar.setOnAction((ActionEvent event) -> {
            String textoActual = textoCantidad.getText();
            String nuevoTexto = textoActual.substring(0, textoActual.length() - 1);
            this.textoCantidad.setText(nuevoTexto);
-        }); 
+           cantidadIngresada = Float.parseFloat(textoCantidad.getText());
+           this.textoMonto.setText("" + this.presentador.calcularMontoTotal(cantidadIngresada));
+        });
+       
+       ok.setOnAction((ActionEvent event) -> {
+           
+        });
+       
+       this.textoCantidad.setStyle("-fx-border-color: #000000");
+       this.textoMonto.setStyle("-fx-border-color: #000000");
+       
     }
     
     private void accionBoton(int numero){
         textoCantidad.setText(textoCantidad.getText() + numero);
-        total = Float.parseFloat(textoCantidad.getText());
-        textoMonto.setText("" + total);
+        cantidadIngresada = Float.parseFloat(textoCantidad.getText());
+        //textoMonto.setText("" + cantidadIngresada*producto.getPrecioUnitario());
+        textoMonto.setText("" + this.presentador.calcularMontoTotal(cantidadIngresada));
     }
     
     @Override

@@ -1,4 +1,4 @@
-package Cantidad;
+package pkg111mil_panaderia.cantidad;
 
 import javafx.scene.Scene;
 
