@@ -8,6 +8,7 @@ package pkg111mil_panaderia.cobrar;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import pkg111mil_panaderia.modelo.Dinero;
 
 /**
  *
@@ -17,7 +18,8 @@ public interface ContratoVistaCobranza {
     public Scene getScene();
     public HBox addHBox();
     public VBox addVBox();
-    
-    
+    public void agregarBillete (Dinero billete);
+    public void aceptarCobranza ();
+    public void cancelarCobranza();
     
 }
