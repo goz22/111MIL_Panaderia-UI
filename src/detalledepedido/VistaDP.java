@@ -17,6 +17,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import pkg111mil_panaderia.modelo.DetallePedido;
 import pkg111mil_panaderia.ui.ContratoControladorVistas;
 
@@ -49,25 +52,37 @@ public class VistaDP implements ContratoVistaDP {
         this.grid = new GridPane();
         this.grid.setHgap(10);
         this.grid.setVgap(10);
-        this.grid.setPadding(new Insets(10, 10, 10, 10));
-        this.grid.setAlignment(Pos.BASELINE_CENTER);
+        this.grid.setPadding(new Insets(10));
         
         // Creacion de caja horizontal (BOTTOM OF PANEL)
         HBox caja = new HBox();
-        caja.setSpacing(10);
-        caja.setStyle("-fx-background-color: #336699;");
+        caja.setPadding(new Insets(10));
+        caja.setSpacing(20);
+        caja.setStyle("-fx-background-color: #926B60;");
         caja.setAlignment(Pos.CENTER);
         
         // Creacion de caja horizontal (TOP OF PANEL)
         HBox caja2 = new HBox();
-        caja.setSpacing(10);
-        caja.setStyle("-fx-background-color: #336699;");
-        caja.setAlignment(Pos.CENTER);
+        caja2.setPadding(new Insets(10));
+        caja2.setStyle("-fx-background-color: #926B60;");
+        caja2.setAlignment(Pos.CENTER);
+        
+        // Creacion de caja vertical (CENTER OF PANEL)
+        VBox caja3 = new VBox();
+        caja3.setPadding(new Insets(10));
+        caja3.setSpacing(10);
+        caja3.setStyle("-fx-background-color: #CFBAA1;");
+        
+        Label labelText = new Label("Seleccione una de las opciones siguientes por favor:" + "\n" + 
+                "Tenga en cuenta que una vez cancelado el pedido no se puede revertir al estado original.");
+        labelText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        caja3.getChildren().add(labelText);
+        caja3.getChildren().add(grid);
         
         // Creacion del panel Principal
         this.panel = new BorderPane();
         this.panel.setPadding(new Insets(10));
-        this.panel.setCenter(grid);
+        this.panel.setCenter(caja3);
         this.panel.setBottom(caja);
         this.panel.setTop(caja2);
         
@@ -92,6 +107,7 @@ public class VistaDP implements ContratoVistaDP {
         
         // (TOP) Creacion de elementos y agregados a posicion
         Label titulo = new Label("COBRO DE PEDIDOS");
+        titulo.setFont(Font.font("Tahoma", FontWeight.NORMAL, 25));
         caja2.getChildren().add(titulo);
        
         // (CENTER) Creacion de elementos y agregado a la grilla
@@ -123,8 +139,8 @@ public class VistaDP implements ContratoVistaDP {
             this.grid.add(nombreProducto, 0 ,i);
             this.grid.add(cantidadProductos, 1 ,i);
             this.grid.add(precioProducto, 2 ,i);
-            this.grid.add(botonCancelar, 3 ,i);
-            this.grid.add(estadoPed, 4 ,i);
+            this.grid.add(estadoPed, 3 ,i);
+            this.grid.add(botonCancelar, 4 ,i);
             
             botonCancelar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -197,7 +213,7 @@ public class VistaDP implements ContratoVistaDP {
         /**
          * Seteo de Escena
          */
-        this.scene = new Scene(this.panel, 500, 500);
+        this.scene = new Scene(this.panel, 650, 500);
         
     }
     
