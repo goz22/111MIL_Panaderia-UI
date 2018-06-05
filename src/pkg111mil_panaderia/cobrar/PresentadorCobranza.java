@@ -8,6 +8,7 @@ package pkg111mil_panaderia.cobrar;
 import java.util.ArrayList;
 import java.util.List;
 import pkg111mil_panaderia.modelo.Dinero;
+import pkg111mil_panaderia.modelo.Pedido;
 
 /**
  *
@@ -16,10 +17,10 @@ import pkg111mil_panaderia.modelo.Dinero;
 public class PresentadorCobranza implements ContratoPresentadorCobranza{
     
     private final ContratoVistaCobranza vista;
-    private float total;
-    private float totalPedido;
+    private float totalIngresado = 0;
     private List<Dinero> dineroIngresado = new ArrayList<>();
     private ContratoProveedor proveedor;
+    private Pedido pedido;
     
     
     public PresentadorCobranza(ContratoVistaCobranza vista) {
@@ -30,15 +31,17 @@ public class PresentadorCobranza implements ContratoPresentadorCobranza{
     
     @Override
     public void billeteElegido(Dinero bill){
-        this.total = this.total + bill.getDenominacion();
-        dineroIngresado.add(bill);
-        this.vista.agregarBillete(bill);
+        if(totalIngresado <= pedido.calcularTotalPedido()){
+            this.totalIngresado = this.totalIngresado + bill.getDenominacion();
+            dineroIngresado.add(bill);
+            this.vista.agregarBillete(bill);
+        }           
     }
     
     @Override
     public void botonCancelarCobranza(){
         this.vista.cancelarCobranza();
-        this.total = 0;
+        this.totalIngresado = 0;
     }
     
     @Override
@@ -48,12 +51,12 @@ public class PresentadorCobranza implements ContratoPresentadorCobranza{
     
     @Override
     public float mostrarTotalPedido(){
-        return totalPedido;
+        return pedido.calcularTotalPedido();
     }
     
     @Override
-    public float mostrarTotal(){
-        return total;
+    public float mostrarTotalIngresado(){
+        return totalIngresado;
     }
     
     public void agregarDineroACaja(){
