@@ -230,7 +230,7 @@ public class VistaDP implements ContratoVistaDP {
                 pedidosNoCancelados.add(pedido);
             }
         }
-        int total = 0;
+        float total = 0;
         for(DetallePedido detalle : pedidosNoCancelados) {
             total += detalle.calcularTotalDetalle();
         }
