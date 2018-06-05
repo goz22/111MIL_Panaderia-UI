@@ -31,6 +31,7 @@ public class VistaDP implements ContratoVistaDP {
     private Scene scene;
     private GridPane grid;
     private BorderPane panel;
+    private int contador;
     
     public VistaDP(ContratoControladorVistas controlador) {
         this.controlador = controlador;
@@ -72,49 +73,8 @@ public class VistaDP implements ContratoVistaDP {
         
         
         /**
-         * CREACION DE ELEMENTOS Y AGREGADO A LOS PANELES
+         * CREACION Y AGREGADO DE ELEMENTOS A PANELES
          */
-        // (CENTER) Creacion de elementos y agregado a la grilla
-        Label estadoPedido = new Label("Estado Pedido");
-        Label categoria = new Label("Producto");
-        Label cantidad = new Label("Cantidad");
-        Label precio = new Label("Precio U");
-        
-        this.grid.add(categoria, 0 ,0);
-        this.grid.add(cantidad, 1 ,0);
-        this.grid.add(precio, 2 ,0);
-        this.grid.add(estadoPedido, 3, 0);
-        
-        List<Button> botones = new ArrayList();
-        List<Label> labelEstado = new ArrayList();
-        List<Label> labelPrecio = new ArrayList();
-        List<Label> labelCantidad = new ArrayList();
-        int i = 1;
-        for(DetallePedido detalle : this.presentadorDP.getDetallePedido()) {
-            String producto = detalle.getTipoProducto().getNombre();
-            String cantidadProd = String.valueOf(detalle.getCantidad());
-            String precioProd = String.valueOf(detalle.getTipoProducto().getPrecioUnitario());
-            
-            Label nombreProducto = new Label(producto);
-            Label cantidadProductos = new Label(cantidadProd);
-            Label precioProducto = new Label(precioProd);
-            Label estadoPed = new Label("Confirmado");
-            Button botonCancelar = new Button("Cancelar");
-            
-            botones.add(botonCancelar);
-            labelEstado.add(estadoPed);
-            labelPrecio.add(precioProducto);
-            labelCantidad.add(cantidadProductos);
-            
-            this.grid.add(nombreProducto, 0 ,i);
-            this.grid.add(cantidadProductos, 1 ,i);
-            this.grid.add(precioProducto, 2 ,i);
-            this.grid.add(botonCancelar, 3 ,i);
-            this.grid.add(estadoPed, 4 ,i);
-            
-            i++;
-        }
-        
         // (BOTTOM) Creacion de elementos y agregado a caja horizontal
         Button botonCancelarGral = new Button("Cancelar Pedidos");
         Button botonCobrar = new Button("Cobrar");
@@ -134,10 +94,62 @@ public class VistaDP implements ContratoVistaDP {
         Label titulo = new Label("COBRO DE PEDIDOS");
         caja2.getChildren().add(titulo);
        
+        // (CENTER) Creacion de elementos y agregado a la grilla
+        Label estadoPedido = new Label("Estado Pedido");
+        Label categoria = new Label("Producto");
+        Label cantidad = new Label("Cantidad");
+        Label precio = new Label("Precio U");
         
+        this.grid.add(categoria, 0 ,0);
+        this.grid.add(cantidad, 1 ,0);
+        this.grid.add(precio, 2 ,0);
+        this.grid.add(estadoPedido, 3, 0);
+        
+        List<Label> labelEstado = new ArrayList();
+        int i = 1;
+        for(DetallePedido detalle : this.presentadorDP.getDetallePedido()) {
+            String producto = detalle.getTipoProducto().getNombre();
+            String cantidadProd = String.valueOf(detalle.getCantidad());
+            String precioProd = String.valueOf(detalle.getTipoProducto().getPrecioUnitario());
+            
+            Label nombreProducto = new Label(producto);
+            Label cantidadProductos = new Label(cantidadProd);
+            Label precioProducto = new Label(precioProd);
+            Label estadoPed = new Label("Confirmado");
+            Button botonCancelar = new Button("Cancelar");
+            
+            labelEstado.add(estadoPed);
+            
+            this.grid.add(nombreProducto, 0 ,i);
+            this.grid.add(cantidadProductos, 1 ,i);
+            this.grid.add(precioProducto, 2 ,i);
+            this.grid.add(botonCancelar, 3 ,i);
+            this.grid.add(estadoPed, 4 ,i);
+            
+            botonCancelar.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(estadoPed.getText().equals("Cancelado") != true) {
+                    estadoPed.setText("Cancelado");
+                    float precioTotal = Float.parseFloat(total.getText());
+                    float cantProductosACancelar = Float.parseFloat(cantidadProductos.getText());
+                    float precioProductoACancelar = Float.parseFloat(precioProducto.getText());
+                    float precioFinal = precioTotal - (cantProductosACancelar * precioProductoACancelar);
+
+                    String nuevoPrecio = String.valueOf(precioFinal);
+                    total.setText(nuevoPrecio);
+                }
+            }
+            });
+            
+            i++;
+        }
+        
+    
         /**
          * ACCION DE BOTONES 
          */
+        // Boton que cancela los pedidos
         botonCancelarGral.setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
@@ -149,7 +161,7 @@ public class VistaDP implements ContratoVistaDP {
         }
         });
         
-        
+        // Boton que cobra todos los pedidos
         botonCobrar.setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
@@ -180,74 +192,6 @@ public class VistaDP implements ContratoVistaDP {
             }
         }
         });
-        
-        
-        botones.get(0).setOnAction(new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent event) {
-            if(labelEstado.get(0).getText().equals("Cancelado") != true) {
-                labelEstado.get(0).setText("Cancelado");
-                float precioTotal = Float.parseFloat(total.getText());
-                float cantProductosACancelar = Float.parseFloat(labelCantidad.get(0).getText());
-                float precioProductoACancelar = Float.parseFloat(labelPrecio.get(0).getText());
-                float precioFinal = precioTotal - (cantProductosACancelar * precioProductoACancelar);
-
-                String nuevoPrecio = String.valueOf(precioFinal);
-                total.setText(nuevoPrecio);
-            }
-        }
-        });
-        
-        botones.get(1).setOnAction(new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent event) {
-            if(labelEstado.get(1).getText().equals("Cancelado") != true) {
-                labelEstado.get(1).setText("Cancelado");
-                float precioTotal = Float.parseFloat(total.getText());
-                float cantProductosACancelar = Float.parseFloat(labelCantidad.get(1).getText());
-                float precioProductoACancelar = Float.parseFloat(labelPrecio.get(1).getText());
-                float precioFinal = precioTotal - (cantProductosACancelar * precioProductoACancelar);
-
-                String nuevoPrecio = String.valueOf(precioFinal);
-                total.setText(nuevoPrecio);
-            }
-        }
-        });
-        
-        botones.get(2).setOnAction(new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent event) {
-            if(labelEstado.get(2).getText().equals("Cancelado") != true) {
-                labelEstado.get(2).setText("Cancelado");
-                float precioTotal = Float.parseFloat(total.getText());
-                float cantProductosACancelar = Float.parseFloat(labelCantidad.get(2).getText());
-                float precioProductoACancelar = Float.parseFloat(labelPrecio.get(2).getText());
-                float precioFinal = precioTotal - (cantProductosACancelar * precioProductoACancelar);
-
-                String nuevoPrecio = String.valueOf(precioFinal);
-                total.setText(nuevoPrecio);
-            }
-        }
-        });
-        
-        botones.get(3).setOnAction(new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent event) {
-            if(labelEstado.get(3).getText().equals("Cancelado") != true) {
-                labelEstado.get(3).setText("Cancelado");
-                float precioTotal = Float.parseFloat(total.getText());
-                float cantProductosACancelar = Float.parseFloat(labelCantidad.get(3).getText());
-                float precioProductoACancelar = Float.parseFloat(labelPrecio.get(3).getText());
-                float precioFinal = precioTotal - (cantProductosACancelar * precioProductoACancelar);
-
-                String nuevoPrecio = String.valueOf(precioFinal);
-                total.setText(nuevoPrecio);
-            }
-        }
-        });
-        
-        
-        
         
         
         /**
@@ -286,4 +230,7 @@ public class VistaDP implements ContratoVistaDP {
         System.out.println("*** FIN DE FACTURA ***");
     }
     
+    public int getConteo() {
+        return this.contador;
+    }
 }
