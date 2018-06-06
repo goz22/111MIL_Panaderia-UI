@@ -17,9 +17,11 @@ import pkg111mil_panaderia.modelo.UnidadMedida;
 public class FalsoProveedor implements ContratoFalsoProveedor{
 
     private ArrayList<DetallePedido> listaDetalles;
+    private ArrayList<String> listaURLS;
     
     public FalsoProveedor() {
-        this.listaDetalles = new ArrayList<>();
+        this.listaDetalles = new ArrayList();
+        this.listaURLS = new ArrayList();
         
         UnidadMedida medida1 = UnidadMedida.UNIDAD;
         
@@ -38,6 +40,15 @@ public class FalsoProveedor implements ContratoFalsoProveedor{
         this.listaDetalles.add(detalle3);
         this.listaDetalles.add(detalle4);
         
+        String urlCriollo = "/detalledepedido/Proveedor/Imagenes/criollo.jpg";
+        String urlPanCasero = "/detalledepedido/Proveedor/Imagenes/pan casero.jpg";
+        String urlFactura = "/detalledepedido/Proveedor/Imagenes/factura.jpg";
+        String urlPanBollo = "/detalledepedido/Proveedor/Imagenes/bollo de pan.jpg";
+        
+        listaURLS.add(urlCriollo);
+        listaURLS.add(urlPanCasero);
+        listaURLS.add(urlFactura);
+        listaURLS.add(urlPanBollo);
     }
     
     
@@ -46,4 +57,8 @@ public class FalsoProveedor implements ContratoFalsoProveedor{
         return this.listaDetalles;
     }
     
+    @Override 
+    public ArrayList<String> getURLS() {
+        return this.listaURLS;
+    }
 }

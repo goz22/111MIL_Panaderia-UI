@@ -15,5 +15,6 @@ import pkg111mil_panaderia.modelo.DetallePedido;
 public interface ContratoFalsoProveedor {
     
     public ArrayList<DetallePedido> getDetallesPedido();
+    public ArrayList<String> getURLS();
     
 }

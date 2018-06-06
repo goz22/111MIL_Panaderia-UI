@@ -15,7 +15,7 @@ import pkg111mil_panaderia.modelo.DetallePedido;
 public interface ContratoPresentadorDP {
     
     public void iniciar();
-    public void mainButtonPressed();
     public ArrayList<DetallePedido> getDetallePedido();
+    public ArrayList<String> getURLS();
     
 }

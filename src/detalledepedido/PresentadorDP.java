@@ -29,13 +29,12 @@ public class PresentadorDP implements ContratoPresentadorDP {
     }
 
     @Override
-    public void mainButtonPressed() {
-        
-    }
-
-    @Override
     public ArrayList<DetallePedido> getDetallePedido() {
         return (this.falsoProveedor.getDetallesPedido());
     }
     
+    @Override
+    public ArrayList<String> getURLS() {
+        return this.falsoProveedor.getURLS();
+    }
 }
