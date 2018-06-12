@@ -1,21 +1,36 @@
 
 package pkg111mil_panaderia.seleccionar;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import javafx.application.Application; 
 import javafx.collections.ObservableList; 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation; 
 import javafx.geometry.Pos; 
 import javafx.scene.Scene; 
 import javafx.scene.control.Button; 
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane; 
 import javafx.stage.Stage;
+
 import pkg111mil_panaderia.modelo.TipoProducto;
+import pkg111mil_panaderia.ui.ContratoControladorVistas;
 
 public class VistaSeleccionProducto implements ContratoVistaSeleccionProducto{
-    private ContratoPresentadorSeleccionProducto presentador;
+    private PresentadorSeleccionProducto presentador;
     private ContratoControladorVistas controlador;
     
     private Scene escena;
@@ -25,24 +40,48 @@ public class VistaSeleccionProducto implements ContratoVistaSeleccionProducto{
         this.controlador = controlador;
         this.presentador = new PresentadorSeleccionProducto(this);
         this.crearYInicializarObjetosVisuales();
-        this.presentador.iniciar();
+       // this.presentador.iniciar();
     }
     
-    
+  
     
    private void crearYInicializarObjetosVisuales() {
-       List<TipoProducto> productos = this.presentador.dameLosProductos();
+      List<TipoProducto> productos = this.presentador.dameLosProductos();
       //Creating an array of Buttons 
        List<Button> botonesProductos = new ArrayList<>();
        for(TipoProducto prod : productos){
            Button boton = new Button(prod.getNombre());
-           boton.
+           boton.setOnAction(new EventHandler<ActionEvent>() {
+
+               @Override
+               public void handle(ActionEvent event) {
+                   controlador.lanzarVistaCantidad(prod);
+               }
+           });
            botonesProductos.add(boton);
-       }
-      
-      //Creating a Tile Pane 
-      TilePane tilePane = new TilePane();   
+        }
        
+       for (int i=0;i<botonesProductos.size();i++){
+           System.out.println(getClass().getResource("criollitos.jpg"));
+        Image imagen = new Image( getClass().getResource("criollitos.jpg").toExternalForm());
+        BackgroundImage backgroundImage = new BackgroundImage( imagen , 
+                BackgroundRepeat.NO_REPEAT, 
+                BackgroundRepeat.NO_REPEAT, 
+                BackgroundPosition.DEFAULT, 
+                BackgroundSize.DEFAULT);
+        Background background = new Background(backgroundImage);
+        
+       
+        //botonesProductos.get(0).setBackground(background);
+        botonesProductos.get(i).setStyle("-fx-background-image: url('criollitos.jpg')");
+        botonesProductos.get(i).setPrefSize(200,200);
+       }
+       //Creating a Tile Pane 
+           Stage stage=new Stage();
+
+      TilePane tilePane = new TilePane(30.0,30.0);   
+      tilePane.setPadding(new Insets(25, 25, 25, 25));
+      
       //Setting the orientation for the Tile Pane 
       tilePane.setOrientation(Orientation.HORIZONTAL); 
        
@@ -56,7 +95,7 @@ public class VistaSeleccionProducto implements ContratoVistaSeleccionProducto{
       ObservableList list = tilePane.getChildren(); 
        
       //Adding the array of buttons to the pane 
-      list.addAll(buttons);
+      list.addAll(botonesProductos);
 	  
       //Creating a scene object 
       Scene scene = new Scene(tilePane);  
@@ -70,4 +109,7 @@ public class VistaSeleccionProducto implements ContratoVistaSeleccionProducto{
       //Displaying the contents of the stage 
       stage.show(); 
    } 
+    
+
+   
 }

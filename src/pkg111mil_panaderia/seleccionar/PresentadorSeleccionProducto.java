@@ -3,12 +3,10 @@ package pkg111mil_panaderia.seleccionar;
 
 import java.util.List;
 import pkg111mil_panaderia.modelo.TipoProducto;
-import proveedores.FalsoProveedorProductos;
-import proveedores.ProveedorProductos;
 
 public class PresentadorSeleccionProducto implements ContratoPresentadorSeleccionProducto{
     private ContratoVistaSeleccionProducto vista;
-    private ProveedorProductos proveedor;
+    private ContratoProveedorProductos proveedor;
 
     public PresentadorSeleccionProducto(ContratoVistaSeleccionProducto vista) {
         this.vista = vista;
