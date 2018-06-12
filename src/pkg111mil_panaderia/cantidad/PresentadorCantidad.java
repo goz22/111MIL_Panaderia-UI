@@ -1,5 +1,6 @@
 package pkg111mil_panaderia.cantidad;
 
+import pkg111mil_panaderia.modelo.DetallePedido;
 import pkg111mil_panaderia.modelo.TipoProducto;
 
 public class PresentadorCantidad implements ContratoPresentadorCantidad{
@@ -23,5 +24,11 @@ public class PresentadorCantidad implements ContratoPresentadorCantidad{
     @Override
     public float calcularMontoTotal(float cantidadIngresada) {
            return this.producto.getPrecioUnitario() * cantidadIngresada;
+    }
+
+    @Override
+    public DetallePedido crearDetalle(float cantidadIngresada) {
+        DetallePedido pedido = new DetallePedido(cantidadIngresada, producto);
+        return pedido;
     }
 }
