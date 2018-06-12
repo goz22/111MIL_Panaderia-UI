@@ -13,5 +13,7 @@ import pkg111mil_panaderia.modelo.TipoProducto;
  */
 public interface ContratoControladorVistas {
     public void lanzarVistaCantidad(TipoProducto productoSeleccionado); 
-    public void launchVistaCobranza();
+    public void launchVistaCobranza();    
+    public void lanzarDetallePedido();
+    
 }

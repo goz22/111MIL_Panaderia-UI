@@ -4,14 +4,8 @@
  * and open the template in the editor.
  */
 package pkg111mil_panaderia.ui;
-
-
+import detalledepedido.VistaDP;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import pkg111mil_panaderia.modelo.TipoProducto;
 import pkg111mil_panaderia.seleccionar.VistaSeleccionProducto;
@@ -26,6 +20,7 @@ public class UI extends Application implements ContratoControladorVistas{
     private Stage mainStage;
     private VistaCobranza vistaConbranza = new VistaCobranza();
     private VistaCantidad vista = null;
+    private VistaDP vistaDP = null;
     
     @Override
     public void start(Stage primaryStage) {
@@ -36,6 +31,8 @@ public class UI extends Application implements ContratoControladorVistas{
        //Stage cantidadStage = new Stage();
         primaryStage.setScene(vista.getScene());
        // primaryStage.show();
+        //Lanzar primera vista
+        this.lanzarDetallePedido();
         this.mainStage.show();
     }
 
@@ -59,6 +56,14 @@ public class UI extends Application implements ContratoControladorVistas{
     @Override
     public void lanzarVistaCantidad(TipoProducto productoSeleccionado) {
         
+    }
+
+    @Override
+    public void lanzarDetallePedido() {
+        if(this.vistaDP == null){
+            this.vistaDP = new VistaDP(this);
+        }
+        this.mainStage.setScene(this.vistaDP.getScene());
     }
     
 }
