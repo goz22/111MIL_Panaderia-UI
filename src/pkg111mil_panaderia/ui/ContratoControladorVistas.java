@@ -5,10 +5,13 @@
  */
 package pkg111mil_panaderia.ui;
 
+import pkg111mil_panaderia.modelo.TipoProducto;
+
 /**
  *
  * @author steve-urbit
  */
 public interface ContratoControladorVistas {
-        public void launchVistaCobranza();
+    public void lanzarVistaCantidad(TipoProducto productoSeleccionado); 
+    public void launchVistaCobranza();
 }

@@ -13,9 +13,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import pkg111mil_panaderia.modelo.TipoProducto;
+import pkg111mil_panaderia.seleccionar.VistaSeleccionProducto;
 import pkg111mil_panaderia.cantidad.VistaCantidad;
 import pkg111mil_panaderia.cobrar.VistaCobranza;
-
 
 /**
  *
@@ -28,6 +29,7 @@ public class UI extends Application implements ContratoControladorVistas{
     
     @Override
     public void start(Stage primaryStage) {
+       VistaSeleccionProducto vista1 = new VistaSeleccionProducto(this);
         this.mainStage = primaryStage;
         this.launchVistaCobranza();
         //vista = new VistaCantidad(this);
@@ -41,6 +43,7 @@ public class UI extends Application implements ContratoControladorVistas{
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
         launch(args);
         
     }
@@ -51,6 +54,11 @@ public class UI extends Application implements ContratoControladorVistas{
             this.vistaConbranza = new VistaCobranza();
         }
         this.mainStage.setScene(this.vistaConbranza.getScene());
+    }
+
+    @Override
+    public void lanzarVistaCantidad(TipoProducto productoSeleccionado) {
+        
     }
     
 }
