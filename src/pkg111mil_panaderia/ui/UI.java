@@ -5,7 +5,7 @@
  */
 package pkg111mil_panaderia.ui;
 
-import Cantidad.VistaCantidad;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,8 +13,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import pkg111mil_panaderia.cantidad.VistaCantidad;
 import pkg111mil_panaderia.cobrar.VistaCobranza;
-import Cantidad.PresentadorCantidad;
+
 
 /**
  *
