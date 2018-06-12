@@ -15,6 +15,7 @@ import pkg111mil_panaderia.modelo.Dinero;
  * @author utku33
  */
 public interface ContratoVistaCobranza {
+       
     public Scene getScene();
     public HBox addHBox();
     public VBox addVBox();

@@ -5,6 +5,7 @@
  */
 package pkg111mil_panaderia.ui;
 
+import pkg111mil_panaderia.modelo.Pedido;
 import pkg111mil_panaderia.modelo.TipoProducto;
 
 /**
@@ -13,7 +14,8 @@ import pkg111mil_panaderia.modelo.TipoProducto;
  */
 public interface ContratoControladorVistas {
     public void lanzarVistaCantidad(TipoProducto productoSeleccionado); 
-    public void launchVistaCobranza();    
+    public void launchVistaCobranza(Pedido pedido);    
     public void lanzarDetallePedido();
+    public void lanzarSelector();
     
 }

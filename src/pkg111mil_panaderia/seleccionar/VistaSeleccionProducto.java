@@ -76,9 +76,7 @@ public class VistaSeleccionProducto implements ContratoVistaSeleccionProducto{
         botonesProductos.get(i).setStyle("-fx-background-image: url('criollitos.jpg')");
         botonesProductos.get(i).setPrefSize(200,200);
        }
-       //Creating a Tile Pane 
-           Stage stage=new Stage();
-
+       
       TilePane tilePane = new TilePane(30.0,30.0);   
       tilePane.setPadding(new Insets(25, 25, 25, 25));
       
@@ -98,17 +96,15 @@ public class VistaSeleccionProducto implements ContratoVistaSeleccionProducto{
       list.addAll(botonesProductos);
 	  
       //Creating a scene object 
-      Scene scene = new Scene(tilePane);  
-      
-      //Setting title to the Stage 
-      stage.setTitle("Tile Pane Example"); 
+      this.escena = new Scene(tilePane);  
          
-      //Adding scene to the stage 
-      stage.setScene(scene); 
-         
-      //Displaying the contents of the stage 
-      stage.show(); 
+       
    } 
+
+    @Override
+    public Scene obtenerEscena() {
+        return this.escena;
+    }
     
 
    

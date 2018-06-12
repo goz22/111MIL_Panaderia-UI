@@ -25,6 +25,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import pkg111mil_panaderia.modelo.DetallePedido;
+import pkg111mil_panaderia.modelo.Pedido;
 import pkg111mil_panaderia.ui.ContratoControladorVistas;
 
 /**
@@ -243,6 +244,7 @@ public class VistaDP implements ContratoVistaDP {
             else {
                 System.out.println("Todos los pedidos fueron cancelados!");
             }
+            controlador.launchVistaCobranza(new Pedido(presentadorDP.getDetallePedido()));
         }
         });
         

@@ -16,6 +16,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import pkg111mil_panaderia.modelo.Dinero;
+import pkg111mil_panaderia.modelo.Pedido;
 import pkg111mil_panaderia.modelo.TipoDinero;
 
 /**
@@ -29,7 +30,7 @@ public class VistaCobranza implements ContratoVistaCobranza {
     private TilePane lienzoEfectivo;
     private ContratoPresentadorCobranza presentador;
     
-    public VistaCobranza(){
+    public VistaCobranza(Pedido pedido){
         this.configurarVentanita();
         this.presentador = new PresentadorCobranza(this);
     }
@@ -61,15 +62,22 @@ public class VistaCobranza implements ContratoVistaCobranza {
       hbox.setSpacing(10);
       hbox.setStyle("-fx-background-color: #999999");
       
-     Button botonBien = new Button ("Cobrar");
-     botonBien.setPrefSize(100, 50);
-     botonBien.setStyle("-fx-background-color: #008000");
+    Button botonCobrar = new Button ("Cobrar");
+    botonCobrar.setPrefSize(100, 50);
+    botonCobrar.setStyle("-fx-background-color: #008000");
+    botonCobrar.setOnAction(new EventHandler<ActionEvent>() {
+
+          @Override
+          public void handle(ActionEvent event) {
+              presentador.botonAceptarCobranza();
+          }
+      });
      
      
-     Button botonCancelar = new Button ("Cancelar");
-     botonCancelar.setPrefSize (100, 50);
-     botonCancelar.setStyle("-fx-background-color: #FF0000");
-      botonCancelar.setOnAction(new EventHandler<ActionEvent>() {
+    Button botonCancelar = new Button ("Cancelar");
+    botonCancelar.setPrefSize (100, 50);
+    botonCancelar.setStyle("-fx-background-color: #FF0000");
+    botonCancelar.setOnAction(new EventHandler<ActionEvent>() {
 
           @Override
           public void handle(ActionEvent event) {
@@ -77,7 +85,7 @@ public class VistaCobranza implements ContratoVistaCobranza {
           
           }
       });
-     hbox.getChildren().addAll(botonBien, botonCancelar);
+     hbox.getChildren().addAll(botonCobrar, botonCancelar);
      return hbox;
     }
 

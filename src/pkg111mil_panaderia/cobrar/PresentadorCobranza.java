@@ -23,11 +23,15 @@ public class PresentadorCobranza implements ContratoPresentadorCobranza{
     private Pedido pedido;
     
     
-    public PresentadorCobranza(ContratoVistaCobranza vista) {
+    public PresentadorCobranza(ContratoVistaCobranza vista, Pedido pedido) {
         this.vista = vista;
         proveedor = new ProveedorCobranza();
-        //totalPedido= this.vista.pedido.calcularTotalPedido();
+       // totalPedido= this.vista.pedido.calcularTotalPedido();
     }   
+
+    PresentadorCobranza(VistaCobranza aThis) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     @Override
     public void billeteElegido(Dinero bill){
@@ -59,6 +63,7 @@ public class PresentadorCobranza implements ContratoPresentadorCobranza{
         return totalIngresado;
     }
     
+    @Override
     public void agregarDineroACaja(){
         proveedor.agregarDineroACaja(dineroIngresado);
     }
