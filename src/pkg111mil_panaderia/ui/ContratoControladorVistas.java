@@ -9,6 +9,6 @@ package pkg111mil_panaderia.ui;
  *
  * @author steve-urbit
  */
-public interface ContratoControladorVistas {
-    
+interface ContratoControladorVistas {
+        public void launchVistaCobranza();
 }
