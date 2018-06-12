@@ -5,6 +5,7 @@
  */
 package pkg111mil_panaderia.ui;
 
+import Cantidad.VistaCantidad;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import Cantidad.PresentadorCantidad;
 
 /**
  *
@@ -19,11 +21,15 @@ import javafx.stage.Stage;
  */
 public class UI extends Application implements ContratoControladorVistas{
     private Stage mainStage;
+    private VistaCantidad vista = null;
     
     @Override
     public void start(Stage primaryStage) {
         this.mainStage = primaryStage;
-        //Lanzar primera vista
+        //vista = new VistaCantidad(this);
+       //Stage cantidadStage = new Stage();
+        primaryStage.setScene(vista.getScene());
+       // primaryStage.show();
         this.mainStage.show();
     }
 
